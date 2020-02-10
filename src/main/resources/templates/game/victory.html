@@ -1,0 +1,31 @@
+<html th:replace="~{layout :: layout(~{::title}, ~{::content})}" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:fragment="title">Victoire</title>
+	</head>
+	<body>
+		<div th:fragment="content">
+			<h1>Victoire</h1>
+			
+			<p>
+				Vous avez reporté la parie en [[${game.time}]]s.
+			</p>
+			
+			<form th:object="${score}" method="post" th:if="${score != null}">
+				<p>
+					Vous avez fait un score permettant de rentrer dans le top 5.<br />
+					Vous pouvez saisir votre nom pour entrer le top 5 du [[${game.mode.label}]].
+				</p>
+				<div class="form-group">
+					<input type="text" class="form-control" id="name" placeholder="Entrez votre nom" th:field="*{name}">
+					<div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Nom invalide</div>
+				</div>
+				
+				<button type="submit" class="btn btn-primary">Sauvegarder</button>
+			</form>
+			<div th:if="${score == null}">
+				<p>Malheureuement, votre score n'est pas suffisant pour entrer dans le top 5</p>
+				<a href="#" th:href="@{/}">Retourner à la page d'accueil</a>
+			</div>
+		</div>
+	</body>
+</html>

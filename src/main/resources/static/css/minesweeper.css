@@ -1,0 +1,39 @@
+table.minefield tr td {
+	border: 1px solid black;
+	width: 30px;
+	height: 30px;
+}
+
+table.minefield tr td.trapped {
+	border: 1px solid red !important;
+}
+
+table.minefield tr td div {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+table.minefield tr td div a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+table.minefield tr td div.unknown {
+	border: 6px solid #999;
+	background-color: #ccc;
+}
+
+table.minefield tr td div .oi {
+	padding-top: 4px;
+}
+
+table.minefield tr td div.mine .oi-flag {
+	color: red;
+}
+
+.lost {
+	color: red;
+	font-size: 2em;
+}

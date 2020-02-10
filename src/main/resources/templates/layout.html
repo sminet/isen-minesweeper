@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout (title, content)">
+	<head>
+		<!-- meta -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+		
+		<!-- local CSS -->
+		<link rel="stylesheet" th:href="@{/css/minesweeper.css}" href="#" />
+		
+		<!-- allow templates to use jquery -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		
+		
+		<!-- page title, will be replaced by given fragment -->
+		<title th:replace="${title}">Application Title</title>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#" th:href="@{/}">Mine Sweeper v1.0</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/game/start}" href="#">Créer / Reprendre une partie</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/mode}" href="#">Gerer les modes de jeu</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		
+		<!-- our site will use bootstrap container layout -->
+		<div class="container">
+			<div class="jumbotron" th:replace="${content}">
+				<!-- content to templace -->
+				<p>Layout page, content gets here !</p>
+			</div>
+		</div>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	</body>
+</html>

@@ -1,0 +1,53 @@
+<html th:replace="~{layout :: layout(~{::title}, ~{::content})}" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:fragment="title">Création d'une partie</title>
+	</head>
+	<body>
+		<div th:fragment="content">
+			<div th:switch="${game.status}">
+				<div th:case="${ T(fr.yncrea.cir3.minesweeper.model.GameStatus).LOST }">
+					<span class="lost">Partie perdu</span>
+				</div>
+				<div th:case="${ T(fr.yncrea.cir3.minesweeper.model.GameStatus).OPEN }">
+					<a th:href="|@{/game/surrender/}${game.id}|" class="btn btn-secondary" role="button" aria-pressed="true">Abandonner</a>
+					<a th:if="${action == 'discover'}" th:href="@{?action=flag}" class="btn btn-secondary" role="button" aria-pressed="true">Mode drapeaux</a>
+					<a th:if="${action == 'flag'}" th:href="@{?action=discover}" class="btn btn-secondary" role="button" aria-pressed="true">Mode découverte</a>
+				</div>
+			</div>
+
+			<ul>
+				<li>Nombre de mines : <span th:text="${game.mode.mines}"></span></li>
+				<li>Temps écoulé : <span th:text="|${game.getTime()}s|"></span></li>
+			</ul>
+
+			<table class="minefield">
+				<tr th:each="y: ${#numbers.sequence(0, game.mode.height - 1)}">
+					<td th:each="x: ${#numbers.sequence(0, game.mode.width - 1)}">
+						<div th:switch="${game.getStatus(x, y)}">
+							<div th:case="${ T(fr.yncrea.cir3.minesweeper.model.PointStatus).DISCOVERED }" th:with="around = ${game.minesAround(x,y)}" class="discover">
+								<div th:if="${around} gt 0" th:text="${around}"></div>
+							</div>
+							<div th:case="${ T(fr.yncrea.cir3.minesweeper.model.PointStatus).DISCOVERED_MINE }" class="mine">
+								<span class="oi oi-target" title="Mine" aria-hidden="true"></span>
+							</div>
+							<div th:case="${ T(fr.yncrea.cir3.minesweeper.model.PointStatus).DISCOVERED_FLAG }" class="mine">
+								<span class="oi oi-flag" title="Supprimer" aria-hidden="true"></span>
+							</div>
+							<div th:case="${ T(fr.yncrea.cir3.minesweeper.model.PointStatus).DISCOVERED_MINE_FLAG }" class="flag">
+								<span class="oi oi-flag" title="Wrong flag" aria-hidden="true"></span>
+							</div>
+							<div th:case="${ T(fr.yncrea.cir3.minesweeper.model.PointStatus).UNKNOWN }" class="unknown">
+								<a href="#" th:href="|@{/game/play/}${game.id}/${x}/${y}?action=${action}"></a>
+							</div>
+							<div th:case="${ T(fr.yncrea.cir3.minesweeper.model.PointStatus).UNKNOWN_FLAG }" class="flag">
+								<a href="#" th:href="|@{/game/play/}${game.id}/${x}/${y}?action=${action}">
+									<span class="oi oi-flag" title="Supprimer" aria-hidden="true"></span>
+								</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

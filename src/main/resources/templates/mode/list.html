@@ -1,0 +1,44 @@
+<html th:replace="~{layout :: layout(~{::title}, ~{::content})}" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:fragment="title">Mode de jeu</title>
+	</head>
+	<body>
+		<div th:fragment="content">
+			<h1>Gestion des modes de jeu</h1>
+			
+			<a th:href="@{/mode/add}" class="btn btn-secondary" role="button" aria-pressed="true">Ajouter un mode</a>
+			
+			<table th:if="${modes.size() > 0}" class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>Libellé</th>
+						<th>Taille</th>
+						<th>Nombre de mines</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="mode : ${modes}" th:object="${mode}">
+						<td th:text="*{id}">1</td>
+						<td th:text="*{label}">Normal</td>
+						<td th:text="|*{width}&nbsp;x&nbsp;*{height}|">10 x 10</td>
+						<td th:text="*{mines}">10</td>
+						<td>
+							<a th:href="@{|/mode/edit/*{id}|}" class="btn btn-primary" role="button">
+								<span class="oi oi-pencil" title="Modifier" aria-hidden="true"></span>
+							</a>
+							<a th:href="@{|/mode/delete/*{id}|}" class="btn btn-danger" role="button">
+								<span class="oi oi-delete" title="Supprimer" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div th:if="${modes.size() <= 0}">
+				Aucun mode de jeu n'a encore été créé
+			</div>
+		</div>
+	</body>
+</html>
